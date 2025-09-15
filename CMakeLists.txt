@@ -4,7 +4,7 @@ include(FetchContent)
 
 project(
   TrigaMirror
-  VERSION 0.0.1
+  VERSION 0.1.0
   DESCRIPTION "Get the flux data of TrigaServer and share in network."
   HOMEPAGE_URL "https://github.com/TRIGA-IPR-R1/TrigaMirror"
   LANGUAGES CXX)
@@ -16,6 +16,8 @@ cmake_policy(SET CMP0167 NEW)
 find_package(PkgConfig REQUIRED)
 find_package(Boost 1.81 REQUIRED COMPONENTS system)
 find_package(OpenSSL REQUIRED)
+find_package(Crow REQUIRED)
+
 
 pkg_search_module(SYSTEMD "systemd")
 pkg_search_module(cxxopts REQUIRED IMPORTED_TARGET cxxopts)
@@ -39,7 +41,8 @@ target_link_libraries(
   PRIVATE ${Boost_LIBRARIES}
           PkgConfig::cxxopts
           OpenSSL::SSL 
-          OpenSSL::Crypto)
+          OpenSSL::Crypto
+  PUBLIC Crow::Crow)
 
 
 target_compile_options(
